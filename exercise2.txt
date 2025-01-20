@@ -1,0 +1,39 @@
+DB(
+DB(staffNo, dentistName, patientNo, patientName, apptDate, apptTime, surgeryNo)
+
+dependencies:
+• staffNo, apptDate, apptTime -> patientNo, patientName
+• staffNo -> dentistName
+• patientNo -> patientName, surgeryNo
+• staffNo, apptDate -> surgeryNo
+• apptDate, apptTime, patientNo -> staffNo, dentistName
+how is the primary key determined:
+with staffNo, apptDate and apptTime --> patientNo and patientName
+with staffNo --> dentistName
+with patientNo --> surgeryNo
+
+1NF:
+DB(*staffNo*, dentistName, patientNo, patientName, *apptDate*, *apptTime*, surgeryNo)
+
+2NF:
+# 1NF + no partial dependencies
+PROBLEMS:
+    - dentistName is dependent on staffNo
+    - surgeryNo is dependent on staffNo and apptDate NOT apptTime
+Dentist(*staffNo*, dentistName)
+Surgery(*staffNo*, *apptDate*, surgeryNo)
+Other(*staffNo*, patientNo, patientName, *apptDate*, *apptTime*)
+
+3NF:
+# 3NF + no transitive dependencies
+In Dentist(*staffNo*, dentistName) --> no transative dependencies so OK
+In Surgery(*staffNo*, *apptDate*, surgeryNo) --> no transative dependencies  so OK
+Other(*staffNo*, patientNo, patientName, *apptDate*, *apptTime*)
+    can you know the patientName based patientNo? YES == transitive dependency!! 
+        Create a new table Patient(*patientNo*, patientName)
+
+RESULTS:
+Dentist(*staffNo*, dentistName)
+Surgery(*staffNo*, *apptDate*, surgeryNo)
+Patient(*patientNo*, patientName)
+Other(*staffNo*, patientNo, *apptDate*, *apptTime*)
