@@ -3,5 +3,6 @@ cd trial_exam
 git remote add origin git@github.com:MeryemAkdenizBIT/trial_exam.git
 git branch -M main
 nano exercise1.txt
+git add exercise1.txt
 git commit -m "Uploaded the answer of exercise 1"
 git push -u origin main
